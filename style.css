@@ -39,12 +39,58 @@ body {
     padding: 15px 50px;
 }
 
-.start-btn:hover {
+/* Quiz Screen styling */
+.question-container {
+    margin: 2.5em 5em;
+}
+
+.question {
+    padding: 1em 0 1.5em 0;
+    border-bottom: 1px solid #DBDEF0;
+}
+
+.question-text {
+    font-family: 'Karla', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.answer {
+    font-size: 0.64rem;
+    font-weight: 500;
+    background-color: inherit;
+    border: 1px solid #4d5b9e;
+    border-radius: 0.5rem;
+    padding: 0.25em 1em;
+    margin: 0.4em;
+}
+
+.question-check-btn {
+    display: block;
+    margin: 1.5em auto;
+    color: white;
+    background-color: #4d5b9e;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.7em 1.4em;
+}
+
+/* Button styling */
+.start-btn:hover, .answer:hover, .question-check-btn:hover {
     cursor: pointer;
 }
 
-.start-btn:active {
-    background-color: #3a4678;
+button:active {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add a slight shadow when pressed */
     transform: translateY(2px); /* Move the button down a bit when pressed */
+}
+
+.answer:active {
+    background-color: #9fa6c8;
+}
+
+.start-btn:active, .question-check-btn:active {
+    background-color: #3a4678;
 }
