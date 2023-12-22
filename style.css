@@ -1,0 +1,50 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: #293264;
+    background-color: #f5f7fb;
+    background: url("images/blob-1.png") right top no-repeat, url("images/blob-2.png") left bottom no-repeat;
+}
+
+/* Start Screen styling */
+.start {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.start-title {
+    font-family: 'Karla', sans-serif;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.start-description {
+    margin: 0;
+    margin-top: 0.5em;
+}
+
+.start-btn {
+    font-weight: 500;
+    color: #f5f7fb;
+    background-color: #4d5b9e;
+    border: none;
+    border-radius: 15px;
+    margin-top: 1.8em;
+    padding: 15px 50px;
+}
+
+.start-btn:hover {
+    cursor: pointer;
+}
+
+.start-btn:active {
+    background-color: #3a4678;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add a slight shadow when pressed */
+    transform: translateY(2px); /* Move the button down a bit when pressed */
+}
