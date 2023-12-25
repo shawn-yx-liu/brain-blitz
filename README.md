@@ -1,5 +1,5 @@
 # Brain Blitz
-Brain Blitz is a web-based trivia game where the user answers ten questions pulled from the Open Trivia Database API. The user can track the time they spent answering the ten questions, along with how many questions they got correct. I built this app as my first project while learning React.
+[Brain Blitz](https://brain-blitz-shawnliu.netlify.app/) is a web-based trivia game where the user answers ten questions pulled from the Open Trivia Database API. The user can track the time they spent answering the ten questions, along with how many questions they got correct. I built this app as my first project while learning React.
 
 ### Built With
 [![React][React.js]][React-url]\
