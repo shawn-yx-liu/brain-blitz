@@ -490,9 +490,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function Question(props) {
     var data = props.data;
     var answerHtml = data.answers.map(function (answer) {
+        var style = props.finished && answer === data.correctAnswer ? "correct" : props.finished && answer === data.selectedAnswer ? "wrong" : answer === data.selectedAnswer ? "selected" : "";
+
         return _react2.default.createElement(
             "button",
-            { key: answer, className: "answer" },
+            {
+                key: answer,
+                className: "answer " + style,
+                onClick: function onClick() {
+                    return props.selectAnswer(data.id, answer);
+                }
+            },
             answer
         );
     });
@@ -524,6 +532,8 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 exports.default = Quiz;
@@ -548,43 +558,94 @@ function Quiz(props) {
         questions = _React$useState2[0],
         setQuestions = _React$useState2[1];
 
-    var questionsHtml = questions.map(function (data) {
-        return _react2.default.createElement(_Question2.default, { key: data.id, data: data });
-    });
+    var _React$useState3 = _react2.default.useState(false),
+        _React$useState4 = _slicedToArray(_React$useState3, 2),
+        finished = _React$useState4[0],
+        setFinished = _React$useState4[1];
+
+    function selectAnswer(id, answer) {
+        setQuestions(function (prevQuestions) {
+            return prevQuestions.map(function (question) {
+                return question.id === id ? _extends({}, question, { selectedAnswer: answer }) : question;
+            });
+        });
+    }
+
+    function numCorrectAnswers() {
+        return questions.filter(function (question) {
+            return question.selectedAnswer === question.correctAnswer;
+        }).length;
+    }
+
+    var questionsHtml = questions.length > 0 ? questions.map(function (data) {
+        return _react2.default.createElement(_Question2.default, {
+            key: data.id,
+            data: data,
+            finished: finished,
+            selectAnswer: selectAnswer
+        });
+    }) : _react2.default.createElement(
+        'h2',
+        { className: 'loading' },
+        'Loading questions...'
+    );
+
+    var footerHtml = _react2.default.createElement(
+        'div',
+        { className: 'footer' },
+        finished && _react2.default.createElement(
+            'h2',
+            null,
+            'You scored ',
+            numCorrectAnswers(),
+            '/5 correct answers'
+        ),
+        _react2.default.createElement(
+            'button',
+            {
+                className: 'footer-btn',
+                onClick: function onClick() {
+                    return setFinished(function (prevFinished) {
+                        return !prevFinished;
+                    });
+                }
+            },
+            finished ? "Play Again" : "Check answers"
+        )
+    );
 
     _react2.default.useEffect(function () {
-        fetch("https://opentdb.com/api.php?amount=5&type=multiple").then(function (response) {
-            return response.json();
-        }).then(function (data) {
-            var mappedData = data.results.map(function (item) {
-                // Condense the answers into one array and add an ID
-                var mappedItem = {
-                    id: (0, _nanoid.nanoid)(),
-                    question: (0, _htmlEntities.decode)(item.question),
-                    answers: item.incorrect_answers.map(function (answer) {
-                        return (0, _htmlEntities.decode)(answer);
-                    }),
-                    correctAnswer: (0, _htmlEntities.decode)(item.correct_answer)
-                };
+        if (!finished) {
+            setQuestions([]);
+            fetch("https://opentdb.com/api.php?amount=5&type=multiple").then(function (response) {
+                return response.json();
+            }).then(function (data) {
+                var mappedData = data.results.map(function (item) {
+                    // Condense the answers into one array and add an ID
+                    var mappedItem = {
+                        id: (0, _nanoid.nanoid)(),
+                        question: (0, _htmlEntities.decode)(item.question),
+                        answers: item.incorrect_answers.map(function (answer) {
+                            return (0, _htmlEntities.decode)(answer);
+                        }),
+                        correctAnswer: (0, _htmlEntities.decode)(item.correct_answer),
+                        selectedAnswer: ""
+                    };
 
-                var randomIndex = Math.floor(Math.random() * 4); // index to insert the correct answer
-                mappedItem.answers.splice(randomIndex, 0, mappedItem.correctAnswer);
-                return mappedItem;
+                    var randomIndex = Math.floor(Math.random() * 4); // index to insert the correct answer
+                    mappedItem.answers.splice(randomIndex, 0, mappedItem.correctAnswer);
+                    return mappedItem;
+                });
+                setQuestions(mappedData);
             });
-
-            setQuestions(mappedData);
-        });
-    }, []);
+        }
+    }, [finished]);
 
     return _react2.default.createElement(
         'div',
         { className: 'question-container' },
         questionsHtml,
-        _react2.default.createElement(
-            'button',
-            { className: 'question-check-btn' },
-            'Check answers'
-        )
+        footerHtml
     );
 }
 
