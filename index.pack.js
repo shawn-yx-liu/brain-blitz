@@ -563,61 +563,20 @@ function Quiz(props) {
         finished = _React$useState4[0],
         setFinished = _React$useState4[1];
 
-    function selectAnswer(id, answer) {
-        setQuestions(function (prevQuestions) {
-            return prevQuestions.map(function (question) {
-                return question.id === id ? _extends({}, question, { selectedAnswer: answer }) : question;
-            });
-        });
-    }
+    var _React$useState5 = _react2.default.useState(false),
+        _React$useState6 = _slicedToArray(_React$useState5, 2),
+        timerRunning = _React$useState6[0],
+        setTimerRunning = _React$useState6[1];
 
-    function numCorrectAnswers() {
-        return questions.filter(function (question) {
-            return question.selectedAnswer === question.correctAnswer;
-        }).length;
-    }
-
-    var questionsHtml = questions.length > 0 ? questions.map(function (data) {
-        return _react2.default.createElement(_Question2.default, {
-            key: data.id,
-            data: data,
-            finished: finished,
-            selectAnswer: selectAnswer
-        });
-    }) : _react2.default.createElement(
-        'h2',
-        { className: 'loading' },
-        'Loading questions...'
-    );
-
-    var footerHtml = _react2.default.createElement(
-        'div',
-        { className: 'footer' },
-        finished && _react2.default.createElement(
-            'h2',
-            null,
-            'You scored ',
-            numCorrectAnswers(),
-            '/5 correct answers'
-        ),
-        _react2.default.createElement(
-            'button',
-            {
-                className: 'footer-btn',
-                onClick: function onClick() {
-                    return setFinished(function (prevFinished) {
-                        return !prevFinished;
-                    });
-                }
-            },
-            finished ? "Play Again" : "Check answers"
-        )
-    );
+    var _React$useState7 = _react2.default.useState(0),
+        _React$useState8 = _slicedToArray(_React$useState7, 2),
+        timeElapsed = _React$useState8[0],
+        setTimeElapsed = _React$useState8[1];
 
     _react2.default.useEffect(function () {
         if (!finished) {
             setQuestions([]);
-            fetch("https://opentdb.com/api.php?amount=5&type=multiple").then(function (response) {
+            fetch("https://opentdb.com/api.php?amount=10&type=multiple").then(function (response) {
                 return response.json();
             }).then(function (data) {
                 var mappedData = data.results.map(function (item) {
@@ -637,9 +596,121 @@ function Quiz(props) {
                     return mappedItem;
                 });
                 setQuestions(mappedData);
+                setTimerRunning(true);
             });
         }
     }, [finished]);
+
+    _react2.default.useEffect(function () {
+        var stopwatchInterval = void 0;
+
+        if (timerRunning) {
+            stopwatchInterval = setInterval(function () {
+                setTimeElapsed(function (prevTimeElapsed) {
+                    return prevTimeElapsed + 1;
+                });
+            }, 1000);
+        }
+
+        return function () {
+            return clearInterval(stopwatchInterval);
+        };
+    }, [timerRunning, timeElapsed]);
+
+    function selectAnswer(id, answer) {
+        setQuestions(function (prevQuestions) {
+            return prevQuestions.map(function (question) {
+                return question.id === id ? _extends({}, question, { selectedAnswer: answer }) : question;
+            });
+        });
+    }
+
+    function numCorrectAnswers() {
+        return questions.filter(function (question) {
+            return question.selectedAnswer === question.correctAnswer;
+        }).length;
+    }
+
+    function convertTimeElapsed() {
+        var timeObject = {
+            hours: Math.floor(timeElapsed / (60 * 60)),
+            minutes: Math.floor(timeElapsed / 60),
+            seconds: Math.floor(timeElapsed % 60)
+        };
+
+        return String(timeObject.hours).padStart(2, '0') + ':' + String(timeObject.minutes).padStart(2, '0') + ':' + String(timeObject.seconds).padStart(2, '0');
+    }
+
+    function displayTimeElapsed() {
+        var timeObject = {
+            hours: Math.floor(timeElapsed / (60 * 60)),
+            minutes: Math.floor(timeElapsed / 60),
+            seconds: Math.floor(timeElapsed % 60)
+        };
+        var hourText = timeObject.hours ? timeObject.hours + ' hours, ' : "";
+        var minuteText = timeObject.minutes ? timeObject.minutes + ' minutes and ' : "";
+        var secondText = timeObject.seconds + ' seconds.';
+
+        return '' + hourText + minuteText + secondText;
+    }
+
+    function handleClick() {
+        if (finished) {
+            setTimeElapsed(0);
+        } else {
+            setTimerRunning(false);
+        }
+        setFinished(function (prevFinished) {
+            return !prevFinished;
+        });
+    }
+
+    var questionsHtml = questions.length > 0 ? questions.map(function (data) {
+        return _react2.default.createElement(_Question2.default, {
+            key: data.id,
+            data: data,
+            finished: finished,
+            selectAnswer: selectAnswer
+        });
+    }) : _react2.default.createElement(
+        'h2',
+        { className: 'loading' },
+        'Loading questions...'
+    );
+
+    var footerHtml = _react2.default.createElement(
+        'div',
+        { className: 'footer' },
+        finished ? _react2.default.createElement(
+            'div',
+            { className: 'scoreText' },
+            _react2.default.createElement(
+                'h2',
+                null,
+                'You scored ',
+                numCorrectAnswers(),
+                '/10 correct answers'
+            ),
+            _react2.default.createElement(
+                'h2',
+                null,
+                'in ',
+                displayTimeElapsed()
+            )
+        ) : _react2.default.createElement(
+            'h2',
+            null,
+            convertTimeElapsed()
+        ),
+        _react2.default.createElement(
+            'button',
+            {
+                className: 'footer-btn',
+                onClick: handleClick
+            },
+            finished ? "Play Again" : "Check answers"
+        )
+    );
 
     return _react2.default.createElement(
         'div',
@@ -674,12 +745,12 @@ function Start(props) {
         _react2.default.createElement(
             "h1",
             { className: "start-title" },
-            "Quizzical"
+            "Brain Blitz"
         ),
         _react2.default.createElement(
             "p",
             { className: "start-description" },
-            "Some description if needed"
+            "From history and science to pop culture, test your speed and well-rounded knowledge. Good luck!"
         ),
         _react2.default.createElement(
             "button",

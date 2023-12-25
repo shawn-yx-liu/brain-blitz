@@ -16,6 +16,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 
 .start-title {
@@ -41,7 +42,8 @@ body {
 
 /* Quiz Screen styling */
 .question-container {
-    margin: 2.5em 5em;
+    margin: 2.5em auto;
+    max-width: 800px;
 }
 
 .loading {
@@ -49,6 +51,7 @@ body {
 }
 
 .question {
+    margin: 0 1em;
     padding: 0.5em 0 1.5em 0;
     border-bottom: 1px solid #DBDEF0;
 }
@@ -115,4 +118,9 @@ button:active {
     font-size: 0.85rem;
     font-weight: 600;
     padding: 0.7em 1.4em;
+}
+
+.score-text {
+    display: flex;
+    flex-direction: column;
 }
