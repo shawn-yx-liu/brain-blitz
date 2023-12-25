@@ -1,28 +1,44 @@
-# co63f4a65ac316545d08e1674
+# Brain Blitz
+Brain Blitz is a web-based trivia game where the user answers ten questions pulled from the Open Trivia Database API. The user can track the time they spent answering the ten questions, along with how many questions they got correct. I built this app as my first project while learning React.
 
-Quick start:
+## Getting Started
+### Build and Run the application:
 
 ```
-$ yarn # npm install
-$ yarn build # npm run build
+$ npm install
+$ npm run dev
 ````
 
-## Development
+### Main Page
+![image](https://github.com/shawn8913/brain-blitz/assets/119635447/f06a7bfb-64b1-4fd5-aa64-b90f7adc687d)
 
-Run Webpack in watch-mode to continually compile the JavaScript as you work:
+### Quiz Page
+![image](https://github.com/shawn8913/brain-blitz/assets/119635447/212466b4-73c4-4dc8-bad8-7e668cf8c7c7)
 
-```
-$ yarn watch # npm run watch
-```
+### Check Answers Page
+![image](https://github.com/shawn8913/brain-blitz/assets/119635447/bd5b6fcc-da8c-4308-82c1-6a6b2d8c3107)
 
-## About Scrimba
 
-At Scrimba our goal is to create the best possible coding school at the cost of a gym membership! 💜
-If we succeed with this, it will give anyone who wants to become a software developer a realistic shot at succeeding, regardless of where they live and the size of their wallets 🎉
-The Frontend Developer Career Path aims to teach you everything you need to become a Junior Developer, or you could take a deep-dive with one of our advanced courses 🚀
+## Technologies Used
+* [![React][React.js]][React-url]
+* [![Javascript][Javascript.js]][Javascript-url]
+* [![Html][Html.js]][Html-url]
+* [![CSS][CSS.js]][CSS-url]
+* [![Vite][Vite.js]][Vite-url]
 
-- [Our courses](https://scrimba.com/allcourses)
-- [The Frontend Career Path](https://scrimba.com/learn/frontend)
-- [Become a Scrimba Pro member](https://scrimba.com/pricing)
+# Authors
+* [Shawn Liu](https://github.com/shawn8913)
 
-Happy Coding!
+# Acknowledgements:
+* [Scrimba Frontend Career Path](https://scrimba.com/learn/frontend)
+
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[Javascript.js]: https://img.shields.io/badge/Javascript-20232A?style=for-the-badge&logo=javascript
+[Javascript-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
+[Html.js]: https://img.shields.io/badge/html-20232A?style=for-the-badge&logo=html5
+[Html-url]: https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics
+[CSS.js]: https://img.shields.io/badge/css-20232A?style=for-the-badge&logo=css3
+[CSS-url]: https://developer.mozilla.org/en-US/docs/Web/CSS
+[Vite.js]: https://img.shields.io/badge/Vite-20232A?style=for-the-badge&logo=vite
+[Vite-url]: https://vitejs.dev/
