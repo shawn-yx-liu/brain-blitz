@@ -1,6 +1,13 @@
 # Brain Blitz
 Brain Blitz is a web-based trivia game where the user answers ten questions pulled from the Open Trivia Database API. The user can track the time they spent answering the ten questions, along with how many questions they got correct. I built this app as my first project while learning React.
 
+### Built With
+[![React][React.js]][React-url]\
+[![Javascript][Javascript.js]][Javascript-url]\
+[![Html][Html.js]][Html-url]\
+[![CSS][CSS.js]][CSS-url]\
+[![Vite][Vite.js]][Vite-url]
+
 ## Getting Started
 ### Build and Run the application:
 
@@ -17,14 +24,6 @@ $ npm run dev
 
 ### Check Answers Page
 ![image](https://github.com/shawn8913/brain-blitz/assets/119635447/bd5b6fcc-da8c-4308-82c1-6a6b2d8c3107)
-
-
-## Technologies Used
-* [![React][React.js]][React-url]
-* [![Javascript][Javascript.js]][Javascript-url]
-* [![Html][Html.js]][Html-url]
-* [![CSS][CSS.js]][CSS-url]
-* [![Vite][Vite.js]][Vite-url]
 
 # Authors
 * [Shawn Liu](https://github.com/shawn8913)
