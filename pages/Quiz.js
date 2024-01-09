@@ -1,39 +1,10 @@
 import React from 'react'
 import Question from '../components/Question'
-import { nanoid } from 'nanoid'
-import { decode } from 'html-entities'
 
-export default function Quiz({type, resetGame, emitScore}) {
-    const [questions, setQuestions] = React.useState([])
+export default function Quiz({questions, setQuestions, type, resetGame, gameId, emitScore}) {
     const [finished, setFinished] = React.useState(false)
-    const [timerRunning, setTimerRunning] = React.useState(false)
+    const [timerRunning, setTimerRunning] = React.useState(true)
     const [timeElapsed, setTimeElapsed] = React.useState(0)
-
-    React.useEffect(() => {
-        if (!finished) {
-            setQuestions([])
-            fetch("https://opentdb.com/api.php?amount=10&type=multiple")
-                .then(response => response.json())
-                .then(data => {
-                    const mappedData = data.results.map(item => {
-                        // Condense the answers into one array and add an ID
-                        const mappedItem = {
-                            id: nanoid(),
-                            question: decode(item.question),
-                            answers: item.incorrect_answers.map(answer => decode(answer)),
-                            correctAnswer: decode(item.correct_answer),
-                            selectedAnswer: ""
-                        }
-
-                        const randomIndex = Math.floor(Math.random() * 4); // index to insert the correct answer
-                        mappedItem.answers.splice(randomIndex, 0, mappedItem.correctAnswer)
-                        return mappedItem
-                    })
-                    setQuestions(mappedData)
-                    setTimerRunning(true)
-                })
-        }
-    }, [finished])
 
     React.useEffect(() => {
         let stopwatchInterval;
@@ -89,7 +60,7 @@ export default function Quiz({type, resetGame, emitScore}) {
         } else {
             setTimerRunning(false)
             if (type === "coop") {
-                emitScore(numCorrectAnswers())
+                emitScore(gameId, numCorrectAnswers())
             }
         }
 

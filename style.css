@@ -9,6 +9,17 @@ body {
     background: url("images/blob-1.png") right top no-repeat, url("images/blob-2.png") left bottom no-repeat;
 }
 
+.menu-btn {
+    width: 10em;
+    font-weight: 500;
+    color: #f5f7fb;
+    background-color: #4d5b9e;
+    border: none;
+    border-radius: 15px;
+    margin: 2.5em 3em 0 3em;
+    padding: 15px 40px;
+}
+
 /* Start Screen styling */
 .start, .host, .join {
     height: 100vh;
@@ -28,17 +39,6 @@ body {
 .start-description {
     margin: 0;
     margin-top: 0.5em;
-}
-
-.start-btn {
-    width: 10em;
-    font-weight: 500;
-    color: #f5f7fb;
-    background-color: #4d5b9e;
-    border: none;
-    border-radius: 15px;
-    margin: 2.5em 3em 0 3em;
-    padding: 15px 40px;
 }
 
 /* Quiz Screen styling */
@@ -86,7 +86,7 @@ body {
 }
 
 /* Button styling */
-.start-btn:hover, .answer:hover, .footer-btn:hover {
+.menu-btn:hover, .answer:hover, .footer-btn:hover {
     cursor: pointer;
 }
 
@@ -99,7 +99,7 @@ button:active {
     background-color: #9fa6c8;
 }
 
-.start-btn:active, .question-check-btn:active {
+.menu-btn:active, .question-check-btn:active {
     background-color: #3a4678;
 }
 

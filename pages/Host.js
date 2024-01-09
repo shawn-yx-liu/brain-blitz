@@ -1,10 +1,13 @@
 import React from 'react';
 
-export default function Host({resetGame, startGame}) {
+export default function Host({gameId, resetGame, startGame}) {
     return (
         <div className="host">
-            <h1>Host screen here!</h1>
-            <button onClick={resetGame} className="start-btn">Go Back</button>
+            <h1>Your game code is: {gameId}</h1>
+            <div className="menu-btn-row">
+                <button onClick={resetGame} className="menu-btn">Go Back</button>
+                <button className="menu-btn" onClick={startGame}>Start Game</button>
+            </div>
         </div>
     )
 }
