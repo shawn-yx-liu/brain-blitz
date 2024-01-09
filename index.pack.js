@@ -2526,11 +2526,11 @@ var _Start = __webpack_require__(25);
 
 var _Start2 = _interopRequireDefault(_Start);
 
-var _Quiz = __webpack_require__(24);
+var _Quiz = __webpack_require__(23);
 
 var _Quiz2 = _interopRequireDefault(_Quiz);
 
-var _Results = __webpack_require__(62);
+var _Results = __webpack_require__(24);
 
 var _Results2 = _interopRequireDefault(_Results);
 
@@ -2540,7 +2540,7 @@ var _socket2 = _interopRequireDefault(_socket);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var socket = (0, _socket2.default)('https://brain-blitz-shawnliu.netlify.app:4000');
+var socket = (0, _socket2.default)('https://brain-blitz-server.onrender.com/');
 
 function App() {
     var _React$useState = _react2.default.useState("start"),
@@ -2659,8 +2659,7 @@ if (process.env.NODE_ENV === 'production') {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 22 */,
-/* 23 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2712,7 +2711,7 @@ function Question(props) {
 }
 
 /***/ }),
-/* 24 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2732,7 +2731,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Question = __webpack_require__(23);
+var _Question = __webpack_require__(22);
 
 var _Question2 = _interopRequireDefault(_Question);
 
@@ -2910,6 +2909,60 @@ function Quiz(_ref) {
         { className: 'question-container' },
         questionsHtml,
         footerHtml
+    );
+}
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.default = Results;
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Results(_ref) {
+    var playerScore = _ref.playerScore,
+        opponentScore = _ref.opponentScore,
+        result = _ref.result,
+        setScreen = _ref.setScreen;
+
+    return _react2.default.createElement(
+        "div",
+        { className: "results-page" },
+        _react2.default.createElement(
+            "h2",
+            null,
+            "You scored: ",
+            playerScore,
+            "/10"
+        ),
+        _react2.default.createElement(
+            "h2",
+            null,
+            "Your opponent scored: ",
+            opponentScore,
+            "/10"
+        ),
+        _react2.default.createElement(
+            "h1",
+            null,
+            result
+        ),
+        _react2.default.createElement(
+            "button",
+            { className: "footer-btn", onClick: setScreen },
+            "Play Again"
+        )
     );
 }
 
@@ -37563,61 +37616,6 @@ try {
 
 module.exports = g;
 
-
-/***/ }),
-/* 61 */,
-/* 62 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.default = Results;
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function Results(_ref) {
-    var playerScore = _ref.playerScore,
-        opponentScore = _ref.opponentScore,
-        result = _ref.result,
-        setScreen = _ref.setScreen;
-
-    return _react2.default.createElement(
-        "div",
-        { className: "results-page" },
-        _react2.default.createElement(
-            "h2",
-            null,
-            "You scored: ",
-            playerScore,
-            "/10"
-        ),
-        _react2.default.createElement(
-            "h2",
-            null,
-            "Your opponent scored: ",
-            opponentScore,
-            "/10"
-        ),
-        _react2.default.createElement(
-            "h1",
-            null,
-            result
-        ),
-        _react2.default.createElement(
-            "button",
-            { className: "footer-btn", onClick: setScreen },
-            "Play Again"
-        )
-    );
-}
 
 /***/ })
 /******/ ]);

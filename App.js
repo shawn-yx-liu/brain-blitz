@@ -4,7 +4,7 @@ import Quiz from './components/Quiz';
 import Results from './components/Results';
 import io from 'socket.io-client';
 
-const socket = io('https://brain-blitz-shawnliu.netlify.app:4000');
+const socket = io('https://brain-blitz-server.onrender.com/');
 
 export default function App() {
     const [screen, setScreen] = React.useState("start")
