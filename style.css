@@ -10,7 +10,7 @@ body {
 }
 
 /* Start Screen styling */
-.start {
+.start, .host, .join {
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -37,8 +37,8 @@ body {
     background-color: #4d5b9e;
     border: none;
     border-radius: 15px;
-    margin: 1.8em 3em;
-    padding: 15px 50px;
+    margin: 2.5em 3em 0 3em;
+    padding: 15px 40px;
 }
 
 /* Quiz Screen styling */

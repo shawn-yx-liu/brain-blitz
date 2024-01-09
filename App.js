@@ -1,13 +1,15 @@
 import React from 'react';
-import Start from './components/Start';
-import Quiz from './components/Quiz';
-import Results from './components/Results';
+import Start from './pages/Start';
+import Quiz from './pages/Quiz';
+import Results from './pages/Results';
+import Host from './pages/Host';
+import Join from './pages/Join';
 import io from 'socket.io-client';
 
 const socket = io('https://brain-blitz-server.onrender.com/');
 
 export default function App() {
-    const [screen, setScreen] = React.useState("start")
+    const [screen, setScreen] = React.useState("start");
     const [playerScore, setPlayerScore] = React.useState(null);
     const [opponentScore, setOpponentScore] = React.useState(null);
     const [result, setResult] = React.useState(null);
@@ -57,9 +59,27 @@ export default function App() {
     }
 
     if (screen === "start") {
-        return <Start setSolo={() => setScreen("solo")} setCoop={() => setScreen("coop")} /> 
+        return <Start 
+                    setSolo={() => setScreen("solo")} 
+                    setHost={() => setScreen("host")}
+                    setJoin={() => setScreen("join")} 
+                /> 
     } else if (screen === "solo" || screen === "coop") {
-        return <Quiz type={screen} resetGame={() => setScreen("start")} emitScore={emitScore} />
+        return <Quiz 
+                    type={screen} 
+                    resetGame={() => setScreen("start")}
+                    emitScore={emitScore} 
+                />
+    } else if (screen === "host") {
+        return <Host 
+                    resetGame={() => setScreen("start")}
+                    startGame={() => setScreen("quiz")}
+                />
+    } else if (screen === "join")  {
+        return <Join 
+                    resetGame={() => setScreen("start")}
+                    startGame={() => setScreen("quiz")}
+                />
     } else {
         return <Results setScreen={() => setScreen("start")} playerScore={playerScore} opponentScore={opponentScore} result={result} />
     }
