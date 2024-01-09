@@ -3,7 +3,7 @@ import Question from './Question'
 import { nanoid } from 'nanoid'
 import { decode } from 'html-entities'
 
-export default function Quiz(props) {
+export default function Quiz({emitScore}) {
     const [questions, setQuestions] = React.useState([])
     const [finished, setFinished] = React.useState(false)
     const [timerRunning, setTimerRunning] = React.useState(false)
@@ -87,6 +87,7 @@ export default function Quiz(props) {
             setTimeElapsed(0)
         } else {
             setTimerRunning(false)
+            emitScore(numCorrectAnswers())
         }
         setFinished(prevFinished => !prevFinished)
     }
