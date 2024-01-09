@@ -2540,7 +2540,7 @@ var _socket2 = _interopRequireDefault(_socket);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var socket = (0, _socket2.default)('http://brain-blitz-shawnliu.netlify.app:4000');
+var socket = (0, _socket2.default)('https://brain-blitz-shawnliu.netlify.app:4000');
 
 function App() {
     var _React$useState = _react2.default.useState("start"),
