@@ -31,12 +31,13 @@ body {
 }
 
 .start-btn {
+    width: 10em;
     font-weight: 500;
     color: #f5f7fb;
     background-color: #4d5b9e;
     border: none;
     border-radius: 15px;
-    margin-top: 1.8em;
+    margin: 1.8em 3em;
     padding: 15px 50px;
 }
 

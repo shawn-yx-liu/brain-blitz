@@ -3,7 +3,7 @@ import Question from './Question'
 import { nanoid } from 'nanoid'
 import { decode } from 'html-entities'
 
-export default function Quiz({emitScore}) {
+export default function Quiz({type, resetGame, emitScore}) {
     const [questions, setQuestions] = React.useState([])
     const [finished, setFinished] = React.useState(false)
     const [timerRunning, setTimerRunning] = React.useState(false)
@@ -85,10 +85,14 @@ export default function Quiz({emitScore}) {
     function handleClick() {
         if (finished) {
             setTimeElapsed(0)
+            resetGame()
         } else {
             setTimerRunning(false)
-            emitScore(numCorrectAnswers())
+            if (type === "coop") {
+                emitScore(numCorrectAnswers())
+            }
         }
+
         setFinished(prevFinished => !prevFinished)
     }
 

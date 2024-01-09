@@ -2564,6 +2564,14 @@ function App() {
         setResult = _React$useState8[1];
 
     _react2.default.useEffect(function () {
+        if (screen === "coop") {
+            socket.connect();
+        } else {
+            socket.disconnect();
+        }
+    }, [screen]);
+
+    _react2.default.useEffect(function () {
         socket.on('scores', function (scores) {
             var player1Score = scores[0].score;
             var player2Score = scores[1].score;
@@ -2595,16 +2603,20 @@ function App() {
         }
     }, [playerScore, opponentScore]);
 
-    var emitScore = function emitScore(score) {
+    function emitScore(score) {
         socket.emit('updateScore', score);
-    };
+    }
 
     if (screen === "start") {
-        return _react2.default.createElement(_Start2.default, { setScreen: function setScreen() {
-                return _setScreen("quiz");
+        return _react2.default.createElement(_Start2.default, { setSolo: function setSolo() {
+                return _setScreen("solo");
+            }, setCoop: function setCoop() {
+                return _setScreen("coop");
             } });
-    } else if (screen === "quiz") {
-        return _react2.default.createElement(_Quiz2.default, { emitScore: emitScore });
+    } else if (screen === "solo" || screen === "coop") {
+        return _react2.default.createElement(_Quiz2.default, { type: screen, resetGame: function resetGame() {
+                return _setScreen("start");
+            }, emitScore: emitScore });
     } else {
         return _react2.default.createElement(_Results2.default, { setScreen: function setScreen() {
                 return _setScreen("start");
@@ -2742,7 +2754,9 @@ var _htmlEntities = __webpack_require__(39);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function Quiz(_ref) {
-    var emitScore = _ref.emitScore;
+    var type = _ref.type,
+        resetGame = _ref.resetGame,
+        emitScore = _ref.emitScore;
 
     var _React$useState = _react2.default.useState([]),
         _React$useState2 = _slicedToArray(_React$useState, 2),
@@ -2848,10 +2862,14 @@ function Quiz(_ref) {
     function handleClick() {
         if (finished) {
             setTimeElapsed(0);
+            resetGame();
         } else {
             setTimerRunning(false);
-            emitScore(numCorrectAnswers());
+            if (type === "coop") {
+                emitScore(numCorrectAnswers());
+            }
         }
+
         setFinished(function (prevFinished) {
             return !prevFinished;
         });
@@ -2984,7 +3002,10 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function Start(props) {
+function Start(_ref) {
+    var setSolo = _ref.setSolo,
+        setCoop = _ref.setCoop;
+
     return _react2.default.createElement(
         "div",
         { className: "start" },
@@ -2999,9 +3020,18 @@ function Start(props) {
             "From history and science to pop culture, test your speed and well-rounded knowledge. Good luck!"
         ),
         _react2.default.createElement(
-            "button",
-            { className: "start-btn", onClick: props.setScreen },
-            "Start quiz"
+            "div",
+            { className: "start-btn-row" },
+            _react2.default.createElement(
+                "button",
+                { className: "start-btn", onClick: setSolo },
+                "1 Player"
+            ),
+            _react2.default.createElement(
+                "button",
+                { className: "start-btn", onClick: setCoop },
+                "2 Players"
+            )
         )
     );
 }

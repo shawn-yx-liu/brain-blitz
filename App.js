@@ -13,6 +13,14 @@ export default function App() {
     const [result, setResult] = React.useState(null);
 
     React.useEffect(() => {
+        if (screen === "coop") {
+            socket.connect();
+        } else {
+            socket.disconnect();
+        }
+    }, [screen])
+
+    React.useEffect(() => {
         socket.on('scores', (scores) => {
             let player1Score = scores[0].score;
             let player2Score = scores[1].score;
@@ -44,14 +52,14 @@ export default function App() {
         }
     }, [playerScore, opponentScore])
 
-    const emitScore = (score) => {
+    function emitScore(score) {
         socket.emit('updateScore', score);
     }
 
     if (screen === "start") {
-        return <Start setScreen={() => setScreen("quiz")} /> 
-    } else if (screen === "quiz") {
-        return <Quiz emitScore={emitScore} />
+        return <Start setSolo={() => setScreen("solo")} setCoop={() => setScreen("coop")} /> 
+    } else if (screen === "solo" || screen === "coop") {
+        return <Quiz type={screen} resetGame={() => setScreen("start")} emitScore={emitScore} />
     } else {
         return <Results setScreen={() => setScreen("start")} playerScore={playerScore} opponentScore={opponentScore} result={result} />
     }
