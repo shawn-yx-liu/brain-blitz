@@ -7,7 +7,7 @@
 [![Javascript][Javascript.js]][Javascript-url]\
 [![Html][Html.js]][Html-url]\
 [![CSS][CSS.js]][CSS-url]\
-[![Vite][Vite.js]][Vite-url]
+[![Webpack][Webpack.js]][Webpack-url]
 
 ### Deployed With
 [![Netlify][Netlify.js]][Netlify-url]\
@@ -79,5 +79,5 @@ $ npm install -g live-server
 [Vite-url]: https://vitejs.dev/
 [Netlify.js]: https://img.shields.io/badge/Netlify-20232A?style=for-the-badge&logo=netlify
 [Netlify-url]: https://www.netlify.com/
-[Render.js]: https://img.shields.io/badge/Render-20232A?style=for-the-badge&logo=render
-[Render-url]: https://render.com/
+[Webpack.js]: https://img.shields.io/badge/Webpack-20232A?style=for-the-badge&logo=webpack
+[Webpack-url]: https://webpack.js.org/
