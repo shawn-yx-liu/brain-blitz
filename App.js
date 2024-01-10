@@ -13,6 +13,7 @@ export default function App() {
 
     const [quizQuestions, setQuizQuestions] = React.useState([]);
     const [currentGameId, setCurrentGameId] = React.useState(null);
+    const [numPlayers, setNumPlayers] = React.useState(0);
     const [playerScore, setPlayerScore] = React.useState(null);
     const [opponentScore, setOpponentScore] = React.useState(null);
     const [result, setResult] = React.useState(null);
@@ -22,14 +23,6 @@ export default function App() {
     React.useEffect(() => {
         gameIdRef.current = currentGameId;
     }, [currentGameId])
-
-    React.useEffect(() => {
-        if (screen === "host" || screen === "join") {
-            socket.connect();
-        } else {
-            socket.disconnect();
-        }
-    }, [screen])
 
     React.useEffect(() => {
         socket.on('scores', (scores) => {
@@ -47,18 +40,28 @@ export default function App() {
         socket.on('newGame', ({playerId, gameId}) => {
             if (playerId === socket.id) {
                 setCurrentGameId(gameId);
+                setNumPlayers(1);
+            }
+        })
+
+        socket.on('joinedGame', (gameId) => {
+            if (gameId === gameIdRef.current) {
+                setNumPlayers(2);
             }
         })
 
         socket.on('questions', ({gameId, questions}) => {
-            if (gameIdRef.current === gameId) {
+            if (gameIdRef.current && gameId === gameIdRef.current) {
                 setQuizQuestions(questions);
-                setScreen("coop");
+                setScreen("quiz");
             }
         })
 
-        socket.on("error", (err) => {
-            alert(err);
+        socket.on("error", ({playerId, message}) => {
+            if (socket.id === playerId) {
+                console.dir(message);
+                alert(message);
+            }
         })
 
         return () => {
@@ -96,18 +99,28 @@ export default function App() {
         socket.emit('startGame', currentGameId);
     }
 
+    function startSoloGame() {
+        socket.emit('startSoloGame');
+    }
+
+    function resetGame() {
+        setCurrentGameId(null);
+        setNumPlayers(0);
+        setScreen("start");
+    }
+
     if (screen === "start") {
         return <Start 
-                    setSolo={() => setScreen("solo")} 
+                    startSoloGame={() => startSoloGame()} 
                     setHost={() => setScreen("host")}
                     setJoin={() => setScreen("join")}
                     emitHost={emitHost}
                 /> 
-    } else if (screen === "solo" || screen === "coop") {
+    } else if (screen === "quiz") {
         return <Quiz 
                     questions={quizQuestions}
                     setQuestions={setQuizQuestions}
-                    type={screen} 
+                    numPlayers={numPlayers}
                     resetGame={() => setScreen("start")}
                     gameId={currentGameId}
                     emitScore={emitScore} 
@@ -115,16 +128,18 @@ export default function App() {
     } else if (screen === "host") {
         return <Host 
                     gameId={currentGameId}
-                    resetGame={() => setScreen("start")}
+                    numPlayers={numPlayers}
+                    resetGame={resetGame}
                     startGame={() => startGame()}
                 />
     } else if (screen === "join")  {
         return <Join
                     setGameId={setCurrentGameId}
-                    resetGame={() => setScreen("start")}
+                    numPlayers={numPlayers}
+                    resetGame={resetGame}
                     emitJoin={emitJoin}
                 />
     } else {
-        return <Results setScreen={() => setScreen("start")} playerScore={playerScore} opponentScore={opponentScore} result={result} />
+        return <Results setScreen={resetGame} playerScore={playerScore} opponentScore={opponentScore} result={result} />
     }
 }

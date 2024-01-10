@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Start({setSolo, emitHost, setHost, setJoin}) {
+export default function Start({startSoloGame, emitHost, setHost, setJoin}) {
     function handleHostClick() {
         emitHost();
         setHost();
@@ -13,7 +13,7 @@ export default function Start({setSolo, emitHost, setHost, setJoin}) {
             <div className="menu-btn-row">
                 <button className="menu-btn" onClick={() => handleHostClick()}>Host Game</button>
                 <button className="menu-btn" onClick={setJoin}>Join Game</button>
-                <button className="menu-btn" onClick={setSolo}>1 Player</button>
+                <button className="menu-btn" onClick={startSoloGame}>1 Player</button>
             </div>
         </div>
     )

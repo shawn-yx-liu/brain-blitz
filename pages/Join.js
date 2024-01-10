@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Join({resetGame, setGameId, emitJoin}) {
+export default function Join({resetGame, numPlayers, setGameId, emitJoin}) {
     const [input, setInput] = React.useState("");
 
     function handleChange(event) {
@@ -14,16 +14,25 @@ export default function Join({resetGame, setGameId, emitJoin}) {
         emitJoin(input);
     }
 
+    function handleReset(event) {
+        event.preventDefault();
+        resetGame();
+    }
+
     return (
         <div className="join">
             <h1>Enter host's game code here: </h1>
             <form onSubmit={handleSubmit}>
-                <input type="text" onChange={handleChange}/>
-                <button>Connect</button>
+                <div className="join-row">
+                    <input type="text" onChange={handleChange}/>
+                    {numPlayers > 0 && <p>Connected!</p>}
+                </div>
+                {numPlayers > 0 && <p>Number of players in lobby: {numPlayers}</p>}
+                <div className="menu-btn-row">
+                    <button onClick={handleReset} className="menu-btn">Go Back</button>
+                    <button disabled={numPlayers > 0} className="menu-btn">Connect</button>
+                </div>
             </form>
-            <div className="menu-btn-row">
-                <button onClick={resetGame} className="menu-btn">Go Back</button>
-            </div>
         </div>
     )
 }

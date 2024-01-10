@@ -2554,7 +2554,7 @@ function App() {
     var _React$useState = _react2.default.useState("start"),
         _React$useState2 = _slicedToArray(_React$useState, 2),
         screen = _React$useState2[0],
-        _setScreen = _React$useState2[1];
+        setScreen = _React$useState2[1];
 
     var _React$useState3 = _react2.default.useState([]),
         _React$useState4 = _slicedToArray(_React$useState3, 2),
@@ -2566,34 +2566,31 @@ function App() {
         currentGameId = _React$useState6[0],
         setCurrentGameId = _React$useState6[1];
 
-    var _React$useState7 = _react2.default.useState(null),
+    var _React$useState7 = _react2.default.useState(0),
         _React$useState8 = _slicedToArray(_React$useState7, 2),
-        playerScore = _React$useState8[0],
-        setPlayerScore = _React$useState8[1];
+        numPlayers = _React$useState8[0],
+        setNumPlayers = _React$useState8[1];
 
     var _React$useState9 = _react2.default.useState(null),
         _React$useState10 = _slicedToArray(_React$useState9, 2),
-        opponentScore = _React$useState10[0],
-        setOpponentScore = _React$useState10[1];
+        playerScore = _React$useState10[0],
+        setPlayerScore = _React$useState10[1];
 
     var _React$useState11 = _react2.default.useState(null),
         _React$useState12 = _slicedToArray(_React$useState11, 2),
-        result = _React$useState12[0],
-        setResult = _React$useState12[1];
+        opponentScore = _React$useState12[0],
+        setOpponentScore = _React$useState12[1];
+
+    var _React$useState13 = _react2.default.useState(null),
+        _React$useState14 = _slicedToArray(_React$useState13, 2),
+        result = _React$useState14[0],
+        setResult = _React$useState14[1];
 
     var gameIdRef = _react2.default.useRef();
 
     _react2.default.useEffect(function () {
         gameIdRef.current = currentGameId;
     }, [currentGameId]);
-
-    _react2.default.useEffect(function () {
-        if (screen === "host" || screen === "join") {
-            socket.connect();
-        } else {
-            socket.disconnect();
-        }
-    }, [screen]);
 
     _react2.default.useEffect(function () {
         socket.on('scores', function (scores) {
@@ -2614,6 +2611,13 @@ function App() {
 
             if (playerId === socket.id) {
                 setCurrentGameId(gameId);
+                setNumPlayers(1);
+            }
+        });
+
+        socket.on('joinedGame', function (gameId) {
+            if (gameId === gameIdRef.current) {
+                setNumPlayers(2);
             }
         });
 
@@ -2621,14 +2625,20 @@ function App() {
             var gameId = _ref2.gameId,
                 questions = _ref2.questions;
 
-            if (gameIdRef.current === gameId) {
+            if (gameIdRef.current && gameId === gameIdRef.current) {
                 setQuizQuestions(questions);
-                _setScreen("coop");
+                setScreen("quiz");
             }
         });
 
-        socket.on("error", function (err) {
-            alert(err);
+        socket.on("error", function (_ref3) {
+            var playerId = _ref3.playerId,
+                message = _ref3.message;
+
+            if (socket.id === playerId) {
+                console.dir(message);
+                alert(message);
+            }
         });
 
         return function () {
@@ -2646,7 +2656,7 @@ function App() {
                 setResult("You win!");
             }
 
-            _setScreen("results");
+            setScreen("results");
         }
     }, [playerScore, opponentScore]);
 
@@ -2666,26 +2676,36 @@ function App() {
         socket.emit('startGame', currentGameId);
     }
 
+    function _startSoloGame() {
+        socket.emit('startSoloGame');
+    }
+
+    function resetGame() {
+        setCurrentGameId(null);
+        setNumPlayers(0);
+        setScreen("start");
+    }
+
     if (screen === "start") {
         return _react2.default.createElement(_Start2.default, {
-            setSolo: function setSolo() {
-                return _setScreen("solo");
+            startSoloGame: function startSoloGame() {
+                return _startSoloGame();
             },
             setHost: function setHost() {
-                return _setScreen("host");
+                return setScreen("host");
             },
             setJoin: function setJoin() {
-                return _setScreen("join");
+                return setScreen("join");
             },
             emitHost: emitHost
         });
-    } else if (screen === "solo" || screen === "coop") {
+    } else if (screen === "quiz") {
         return _react2.default.createElement(_Quiz2.default, {
             questions: quizQuestions,
             setQuestions: setQuizQuestions,
-            type: screen,
+            numPlayers: numPlayers,
             resetGame: function resetGame() {
-                return _setScreen("start");
+                return setScreen("start");
             },
             gameId: currentGameId,
             emitScore: emitScore
@@ -2693,9 +2713,8 @@ function App() {
     } else if (screen === "host") {
         return _react2.default.createElement(_Host2.default, {
             gameId: currentGameId,
-            resetGame: function resetGame() {
-                return _setScreen("start");
-            },
+            numPlayers: numPlayers,
+            resetGame: resetGame,
             startGame: function startGame() {
                 return _startGame();
             }
@@ -2703,15 +2722,12 @@ function App() {
     } else if (screen === "join") {
         return _react2.default.createElement(_Join2.default, {
             setGameId: setCurrentGameId,
-            resetGame: function resetGame() {
-                return _setScreen("start");
-            },
+            numPlayers: numPlayers,
+            resetGame: resetGame,
             emitJoin: emitJoin
         });
     } else {
-        return _react2.default.createElement(_Results2.default, { setScreen: function setScreen() {
-                return _setScreen("start");
-            }, playerScore: playerScore, opponentScore: opponentScore, result: result });
+        return _react2.default.createElement(_Results2.default, { setScreen: resetGame, playerScore: playerScore, opponentScore: opponentScore, result: result });
     }
 }
 
@@ -2856,6 +2872,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function Host(_ref) {
     var gameId = _ref.gameId,
+        numPlayers = _ref.numPlayers,
         resetGame = _ref.resetGame,
         startGame = _ref.startGame;
 
@@ -2869,6 +2886,12 @@ function Host(_ref) {
             gameId
         ),
         _react2.default.createElement(
+            "p",
+            null,
+            "Number of players in lobby: ",
+            numPlayers
+        ),
+        _react2.default.createElement(
             "div",
             { className: "menu-btn-row" },
             _react2.default.createElement(
@@ -2878,7 +2901,7 @@ function Host(_ref) {
             ),
             _react2.default.createElement(
                 "button",
-                { className: "menu-btn", onClick: startGame },
+                { disabled: numPlayers < 2, className: "menu-btn", onClick: startGame },
                 "Start Game"
             )
         )
@@ -2908,6 +2931,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function Join(_ref) {
     var resetGame = _ref.resetGame,
+        numPlayers = _ref.numPlayers,
         setGameId = _ref.setGameId,
         emitJoin = _ref.emitJoin;
 
@@ -2927,6 +2951,11 @@ function Join(_ref) {
         emitJoin(input);
     }
 
+    function handleReset(event) {
+        event.preventDefault();
+        resetGame();
+    }
+
     return _react2.default.createElement(
         "div",
         { className: "join" },
@@ -2938,20 +2967,35 @@ function Join(_ref) {
         _react2.default.createElement(
             "form",
             { onSubmit: handleSubmit },
-            _react2.default.createElement("input", { type: "text", onChange: handleChange }),
             _react2.default.createElement(
-                "button",
+                "div",
+                { className: "join-row" },
+                _react2.default.createElement("input", { type: "text", onChange: handleChange }),
+                numPlayers > 0 && _react2.default.createElement(
+                    "p",
+                    null,
+                    "Connected!"
+                )
+            ),
+            numPlayers > 0 && _react2.default.createElement(
+                "p",
                 null,
-                "Connect"
-            )
-        ),
-        _react2.default.createElement(
-            "div",
-            { className: "menu-btn-row" },
+                "Number of players in lobby: ",
+                numPlayers
+            ),
             _react2.default.createElement(
-                "button",
-                { onClick: resetGame, className: "menu-btn" },
-                "Go Back"
+                "div",
+                { className: "menu-btn-row" },
+                _react2.default.createElement(
+                    "button",
+                    { onClick: handleReset, className: "menu-btn" },
+                    "Go Back"
+                ),
+                _react2.default.createElement(
+                    "button",
+                    { disabled: numPlayers > 0, className: "menu-btn" },
+                    "Connect"
+                )
             )
         )
     );
@@ -2987,7 +3031,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function Quiz(_ref) {
     var questions = _ref.questions,
         setQuestions = _ref.setQuestions,
-        type = _ref.type,
+        numPlayers = _ref.numPlayers,
         resetGame = _ref.resetGame,
         gameId = _ref.gameId,
         emitScore = _ref.emitScore;
@@ -3066,7 +3110,7 @@ function Quiz(_ref) {
             resetGame();
         } else {
             setTimerRunning(false);
-            if (type === "coop") {
+            if (numPlayers > 1) {
                 emitScore(gameId, numCorrectAnswers());
             }
         }
@@ -3204,7 +3248,7 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function Start(_ref) {
-    var setSolo = _ref.setSolo,
+    var startSoloGame = _ref.startSoloGame,
         emitHost = _ref.emitHost,
         setHost = _ref.setHost,
         setJoin = _ref.setJoin;
@@ -3244,7 +3288,7 @@ function Start(_ref) {
             ),
             _react2.default.createElement(
                 "button",
-                { className: "menu-btn", onClick: setSolo },
+                { className: "menu-btn", onClick: startSoloGame },
                 "1 Player"
             )
         )

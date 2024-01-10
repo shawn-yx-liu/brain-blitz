@@ -20,6 +20,14 @@ body {
     padding: 15px 40px;
 }
 
+.menu-btn:disabled {
+    background-color: lightgray;
+}
+
+.menu-btn:enabled:active {
+    background-color: #3a4678;
+}
+
 /* Start Screen styling */
 .start, .host, .join {
     height: 100vh;
@@ -97,10 +105,6 @@ button:active {
 
 .answer:active {
     background-color: #9fa6c8;
-}
-
-.menu-btn:active, .question-check-btn:active {
-    background-color: #3a4678;
 }
 
 /* Footer styling */

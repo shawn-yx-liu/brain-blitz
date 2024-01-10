@@ -1,7 +1,7 @@
 import React from 'react'
 import Question from '../components/Question'
 
-export default function Quiz({questions, setQuestions, type, resetGame, gameId, emitScore}) {
+export default function Quiz({questions, setQuestions, numPlayers, resetGame, gameId, emitScore}) {
     const [finished, setFinished] = React.useState(false)
     const [timerRunning, setTimerRunning] = React.useState(true)
     const [timeElapsed, setTimeElapsed] = React.useState(0)
@@ -59,7 +59,7 @@ export default function Quiz({questions, setQuestions, type, resetGame, gameId, 
             resetGame()
         } else {
             setTimerRunning(false)
-            if (type === "coop") {
+            if (numPlayers > 1) {
                 emitScore(gameId, numCorrectAnswers())
             }
         }
