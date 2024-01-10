@@ -121,7 +121,7 @@ export default function App() {
                     questions={quizQuestions}
                     setQuestions={setQuizQuestions}
                     numPlayers={numPlayers}
-                    resetGame={() => setScreen("start")}
+                    resetGame={resetGame}
                     gameId={currentGameId}
                     emitScore={emitScore} 
                 />

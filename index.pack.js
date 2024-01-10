@@ -2704,9 +2704,7 @@ function App() {
             questions: quizQuestions,
             setQuestions: setQuizQuestions,
             numPlayers: numPlayers,
-            resetGame: function resetGame() {
-                return setScreen("start");
-            },
+            resetGame: resetGame,
             gameId: currentGameId,
             emitScore: emitScore
         });
@@ -2888,6 +2886,11 @@ function Host(_ref) {
         _react2.default.createElement(
             "p",
             null,
+            numPlayers < 2 ? "Waiting for player..." : "Connected!"
+        ),
+        _react2.default.createElement(
+            "p",
+            null,
             "Number of players in lobby: ",
             numPlayers
         ),
@@ -2947,8 +2950,8 @@ function Join(_ref) {
 
     function handleSubmit(event) {
         event.preventDefault();
-        setGameId(input);
-        emitJoin(input);
+        setGameId(input.toUpperCase());
+        emitJoin(input.toUpperCase());
     }
 
     function handleReset(event) {
@@ -2960,22 +2963,22 @@ function Join(_ref) {
         "div",
         { className: "join" },
         _react2.default.createElement(
-            "h1",
-            null,
-            "Enter host's game code here: "
-        ),
-        _react2.default.createElement(
             "form",
             { onSubmit: handleSubmit },
             _react2.default.createElement(
                 "div",
                 { className: "join-row" },
-                _react2.default.createElement("input", { type: "text", onChange: handleChange }),
-                numPlayers > 0 && _react2.default.createElement(
-                    "p",
+                _react2.default.createElement(
+                    "h1",
                     null,
-                    "Connected!"
-                )
+                    "Enter host's game code here: "
+                ),
+                _react2.default.createElement("input", { className: "join-input", type: "text", onChange: handleChange })
+            ),
+            numPlayers > 0 && _react2.default.createElement(
+                "p",
+                null,
+                "Connected! Wait for host to start the game..."
             ),
             numPlayers > 0 && _react2.default.createElement(
                 "p",
@@ -3144,12 +3147,7 @@ function Quiz(_ref) {
                 null,
                 'You scored ',
                 numCorrectAnswers(),
-                '/10 correct answers'
-            ),
-            _react2.default.createElement(
-                'h2',
-                null,
-                'in ',
+                '/10 correct answers in ',
                 displayTimeElapsed()
             )
         ) : _react2.default.createElement(
@@ -3157,10 +3155,14 @@ function Quiz(_ref) {
             null,
             convertTimeElapsed()
         ),
-        finished ? numPlayers === 1 && _react2.default.createElement(
+        finished ? numPlayers === 1 ? _react2.default.createElement(
             'button',
             { className: 'footer-btn', onClick: handleClick },
             'Play Again'
+        ) : _react2.default.createElement(
+            'p',
+            null,
+            'Waiting for opponent...'
         ) : _react2.default.createElement(
             'button',
             { className: 'footer-btn', onClick: handleClick },

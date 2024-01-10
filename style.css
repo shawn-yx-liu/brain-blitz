@@ -49,6 +49,18 @@ body {
     margin-top: 0.5em;
 }
 
+.join-row {
+    display: flex;
+    align-items: center;
+}
+
+.join-input {
+    font-size: 1.25rem;
+    width: 5em;
+    margin-left: 1em;
+    padding: 0.5em 1em;
+}
+
 /* Quiz Screen styling */
 .question-container {
     margin: 2.5em auto;
@@ -110,9 +122,9 @@ button:active {
 /* Footer styling */
 .footer {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    margin: 1.5em auto;
 }
 
 .footer-btn {
@@ -124,11 +136,6 @@ button:active {
     font-weight: 600;
     margin-top: 1.5em;
     padding: 0.7em 1.4em;
-}
-
-.score-text {
-    display: flex;
-    flex-direction: column;
 }
 
 /* Results page styling */

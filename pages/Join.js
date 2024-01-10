@@ -10,8 +10,8 @@ export default function Join({resetGame, numPlayers, setGameId, emitJoin}) {
 
     function handleSubmit(event) {
         event.preventDefault();
-        setGameId(input);
-        emitJoin(input);
+        setGameId(input.toUpperCase());
+        emitJoin(input.toUpperCase());
     }
 
     function handleReset(event) {
@@ -21,12 +21,12 @@ export default function Join({resetGame, numPlayers, setGameId, emitJoin}) {
 
     return (
         <div className="join">
-            <h1>Enter host's game code here: </h1>
             <form onSubmit={handleSubmit}>
                 <div className="join-row">
-                    <input type="text" onChange={handleChange}/>
-                    {numPlayers > 0 && <p>Connected!</p>}
+                    <h1>Enter host's game code here: </h1>
+                    <input className="join-input" type="text" onChange={handleChange}/>
                 </div>
+                {numPlayers > 0 && <p>Connected! Wait for host to start the game...</p>}
                 {numPlayers > 0 && <p>Number of players in lobby: {numPlayers}</p>}
                 <div className="menu-btn-row">
                     <button onClick={handleReset} className="menu-btn">Go Back</button>

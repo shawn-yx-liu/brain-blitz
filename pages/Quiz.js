@@ -87,14 +87,13 @@ export default function Quiz({questions, setQuestions, numPlayers, resetGame, ga
             {finished ? 
                 (
                     <div className="scoreText">
-                        <h2>You scored {numCorrectAnswers()}/10 correct answers</h2>
-                        <h2>in {displayTimeElapsed()}</h2>
+                        <h2>You scored {numCorrectAnswers()}/10 correct answers in {displayTimeElapsed()}</h2>
                     </div>
                 ) 
                 : <h2>{convertTimeElapsed()}</h2>
             }
             {finished ? (
-                numPlayers === 1 && <button className="footer-btn" onClick={handleClick}>Play Again</button>
+                numPlayers === 1 ? <button className="footer-btn" onClick={handleClick}>Play Again</button> : <p>Waiting for opponent...</p>
             ) : (
                 <button className="footer-btn" onClick={handleClick}>Check answers</button>
             )}
