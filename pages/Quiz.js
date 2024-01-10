@@ -93,12 +93,11 @@ export default function Quiz({questions, setQuestions, numPlayers, resetGame, ga
                 ) 
                 : <h2>{convertTimeElapsed()}</h2>
             }
-            <button
-                className="footer-btn"
-                onClick={handleClick}
-            >
-                {finished ? "Play Again" : "Check answers"}
-            </button>
+            {finished ? (
+                numPlayers === 1 && <button className="footer-btn" onClick={handleClick}>Play Again</button>
+            ) : (
+                <button className="footer-btn" onClick={handleClick}>Check answers</button>
+            )}
         </div>
     )
 

@@ -3157,13 +3157,14 @@ function Quiz(_ref) {
             null,
             convertTimeElapsed()
         ),
-        _react2.default.createElement(
+        finished ? numPlayers === 1 && _react2.default.createElement(
             'button',
-            {
-                className: 'footer-btn',
-                onClick: handleClick
-            },
-            finished ? "Play Again" : "Check answers"
+            { className: 'footer-btn', onClick: handleClick },
+            'Play Again'
+        ) : _react2.default.createElement(
+            'button',
+            { className: 'footer-btn', onClick: handleClick },
+            'Check answers'
         )
     );
 
