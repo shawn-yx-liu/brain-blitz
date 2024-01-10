@@ -1,6 +1,8 @@
 # Brain Blitz
 [Brain Blitz](https://brain-blitz-shawnliu.netlify.app/) is a web-based trivia game where the user answers ten questions pulled from the Open Trivia Database API. The user can either quiz themselves or compete against a friend. Once the user answers the ten questions, the app will grade each question and display the user's score and time taken. If two players are competing, the app will display a results screen after both players have submitted their answers. I built this app as my first project while learning React, then later added multiplayer functionality to learn Sockets.IO.
 
+The server code can be found in [this repo](https://github.com/shawn8913/brain-blitz-server/tree/main)
+
 ### Built With
 [![React][React.js]][React-url]\
 [![Sockets.io][Sockets.js]][Sockets-url]\
@@ -75,9 +77,9 @@ $ npm install -g live-server
 [Html-url]: https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics
 [CSS.js]: https://img.shields.io/badge/css-20232A?style=for-the-badge&logo=css3
 [CSS-url]: https://developer.mozilla.org/en-US/docs/Web/CSS
-[Vite.js]: https://img.shields.io/badge/Vite-20232A?style=for-the-badge&logo=vite
-[Vite-url]: https://vitejs.dev/
 [Netlify.js]: https://img.shields.io/badge/Netlify-20232A?style=for-the-badge&logo=netlify
 [Netlify-url]: https://www.netlify.com/
+[Render.js]: https://img.shields.io/badge/Render-20232A?style=for-the-badge&logo=render
+[Render-url]: https://render.com/
 [Webpack.js]: https://img.shields.io/badge/Webpack-20232A?style=for-the-badge&logo=webpack
 [Webpack-url]: https://webpack.js.org/
