@@ -5,15 +5,15 @@ The server code can be found [here](https://github.com/shawn8913/brain-blitz-ser
 
 ### Built With
 [![React][React.js]][React-url]\
-[![Sockets.io][Sockets.js]][Sockets-url]\
-[![Javascript][Javascript.js]][Javascript-url]\
 [![Html][Html.js]][Html-url]\
 [![CSS][CSS.js]][CSS-url]\
+[![Sockets.io][Sockets.js]][Sockets-url]\
+[![Express][Express.js]][Express-url]\
 [![Webpack][Webpack.js]][Webpack-url]
 
 ### Deployed With
 [![Netlify][Netlify.js]][Netlify-url]\
-[![Render][Render.js]][Render-url]
+[![Heroku][Heroku.js]][Heroku-url]
 
 ## Getting Started
 ### Build and Run the application:
@@ -69,17 +69,17 @@ $ npm install -g live-server
 
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
-[Sockets.js]: https://img.shields.io/badge/Sockets.io-20232A?style=for-the-badge&logo=socketdotio&logoColor=61DAFB
-[Sockets-url]: https://socket.io/
-[Javascript.js]: https://img.shields.io/badge/Javascript-20232A?style=for-the-badge&logo=javascript
-[Javascript-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
 [Html.js]: https://img.shields.io/badge/html-20232A?style=for-the-badge&logo=html5
 [Html-url]: https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics
 [CSS.js]: https://img.shields.io/badge/css-20232A?style=for-the-badge&logo=css3
 [CSS-url]: https://developer.mozilla.org/en-US/docs/Web/CSS
-[Netlify.js]: https://img.shields.io/badge/Netlify-20232A?style=for-the-badge&logo=netlify
-[Netlify-url]: https://www.netlify.com/
-[Render.js]: https://img.shields.io/badge/Render-20232A?style=for-the-badge&logo=render
-[Render-url]: https://render.com/
+[Sockets.js]: https://img.shields.io/badge/Sockets.io-20232A?style=for-the-badge&logo=socketdotio&logoColor=61DAFB
+[Sockets-url]: https://socket.io/
+[Express.js]: https://img.shields.io/badge/Express-20232A?style=for-the-badge&logo=express
+[Express-url]: https://expressjs.com/
 [Webpack.js]: https://img.shields.io/badge/Webpack-20232A?style=for-the-badge&logo=webpack
 [Webpack-url]: https://webpack.js.org/
+[Netlify.js]: https://img.shields.io/badge/Netlify-20232A?style=for-the-badge&logo=netlify
+[Netlify-url]: https://www.netlify.com/
+[Heroku.js]: https://img.shields.io/badge/Heroku-20232A?style=for-the-badge&logo=heroku
+[Heroku-url]: https://dashboard.heroku.com/
