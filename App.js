@@ -6,7 +6,7 @@ import Host from './pages/Host';
 import Join from './pages/Join';
 import io from 'socket.io-client';
 
-const socket = io('https://brain-blitz-server.onrender.com/');
+const socket = io('https://brain-blitz-server-a80708a0eab7.herokuapp.com/');
 
 export default function App() {
     const [screen, setScreen] = React.useState("start");
