@@ -34,8 +34,8 @@ $ live-server
 * To play in one-player mode, click the "1 Player" button. 
 
 ## Help
-* Unfortunately, as I am using the free version of Render to host the game server, it will automatically spin itself down after some inactivity.
-  * The first time you use the app, you may have to wait 30-60 seconds for the server to spin back up.
+* As I am using the Heroku to host the game server, it will automatically spin itself down after some inactivity.
+  * The first time you use the app, you may have to wait ~30 seconds for the server to spin back up.
   * You will know the server is up and running if you click "Host Game" and a 4-letter code is displayed.
     
 * If the `live-server` command does not work on your local machine, you may need to install the live-server package
