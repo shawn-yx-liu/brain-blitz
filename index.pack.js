@@ -2548,7 +2548,7 @@ var _socket2 = _interopRequireDefault(_socket);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var socket = (0, _socket2.default)('https://brain-blitz-server.onrender.com/');
+var socket = (0, _socket2.default)('https://brain-blitz-server-a80708a0eab7.herokuapp.com/');
 
 function App() {
     var _React$useState = _react2.default.useState("start"),
