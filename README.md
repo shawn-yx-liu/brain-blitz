@@ -1,19 +1,19 @@
 # Brain Blitz
-[Brain Blitz](https://brain-blitz-shawnliu.netlify.app/) is a web-based trivia game where the user answers ten questions pulled from the Open Trivia Database API. The user can either quiz themselves or compete against a friend. Once the user answers the ten questions, the app will grade each question and display the user's score and time taken. If two players are competing, the app will display a results screen after both players have submitted their answers. I built this app as my first project while learning React, then later added multiplayer functionality to learn Sockets.IO.
+[Brain Blitz](https://brain-blitz-shawnliu.netlify.app/) is a web-based trivia game where the user answers ten questions pulled from the Open Trivia Database API. The user can either quiz themselves or compete against a friend. Once the user answers the ten questions, the app will grade each question and display the user's score and time taken. If two players are competing, the app will display a results screen after both players have submitted their answers. I built this app as my first project while learning React, then later added multiplayer functionality to learn Socket.IO.
 
 The server code can be found [here](https://github.com/shawn8913/brain-blitz-server/tree/main)
 
 ### Built With
 [![React][React.js]][React-url]\
-[![Sockets.io][Sockets.js]][Sockets-url]\
-[![Javascript][Javascript.js]][Javascript-url]\
 [![Html][Html.js]][Html-url]\
 [![CSS][CSS.js]][CSS-url]\
+[![Socket.io][Socket.js]][Socket-url]\
+[![Express][Express.js]][Express-url]\
 [![Webpack][Webpack.js]][Webpack-url]
 
 ### Deployed With
 [![Netlify][Netlify.js]][Netlify-url]\
-[![Render][Render.js]][Render-url]
+[![Heroku][Heroku.js]][Heroku-url]
 
 ## Getting Started
 ### Build and Run the application:
@@ -34,8 +34,8 @@ $ live-server
 * To play in one-player mode, click the "1 Player" button. 
 
 ## Help
-* Unfortunately, as I am using the free version of Render to host the game server, it will automatically spin itself down after some inactivity.
-  * The first time you use the app, you may have to wait 30-60 seconds for the server to spin back up.
+* As I am using the Heroku to host the game server, it will automatically spin itself down after some inactivity.
+  * The first time you use the app, you may have to wait ~30 seconds for the server to spin back up.
   * You will know the server is up and running if you click "Host Game" and a 4-letter code is displayed.
     
 * If the `live-server` command does not work on your local machine, you may need to install the live-server package
@@ -69,17 +69,17 @@ $ npm install -g live-server
 
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
-[Sockets.js]: https://img.shields.io/badge/Sockets.io-20232A?style=for-the-badge&logo=socketdotio&logoColor=61DAFB
-[Sockets-url]: https://socket.io/
-[Javascript.js]: https://img.shields.io/badge/Javascript-20232A?style=for-the-badge&logo=javascript
-[Javascript-url]: https://developer.mozilla.org/en-US/docs/Web/JavaScript
 [Html.js]: https://img.shields.io/badge/html-20232A?style=for-the-badge&logo=html5
 [Html-url]: https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics
 [CSS.js]: https://img.shields.io/badge/css-20232A?style=for-the-badge&logo=css3
 [CSS-url]: https://developer.mozilla.org/en-US/docs/Web/CSS
-[Netlify.js]: https://img.shields.io/badge/Netlify-20232A?style=for-the-badge&logo=netlify
-[Netlify-url]: https://www.netlify.com/
-[Render.js]: https://img.shields.io/badge/Render-20232A?style=for-the-badge&logo=render
-[Render-url]: https://render.com/
+[Socket.js]: https://img.shields.io/badge/Socket.io-20232A?style=for-the-badge&logo=socketdotio&logoColor=61DAFB
+[Socket-url]: https://socket.io/
+[Express.js]: https://img.shields.io/badge/Express-20232A?style=for-the-badge&logo=express
+[Express-url]: https://expressjs.com/
 [Webpack.js]: https://img.shields.io/badge/Webpack-20232A?style=for-the-badge&logo=webpack
 [Webpack-url]: https://webpack.js.org/
+[Netlify.js]: https://img.shields.io/badge/Netlify-20232A?style=for-the-badge&logo=netlify
+[Netlify-url]: https://www.netlify.com/
+[Heroku.js]: https://img.shields.io/badge/Heroku-20232A?style=for-the-badge&logo=heroku
+[Heroku-url]: https://dashboard.heroku.com/
